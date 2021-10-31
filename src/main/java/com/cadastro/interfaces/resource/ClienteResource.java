@@ -1,6 +1,7 @@
 package com.cadastro.interfaces.resource;
 
 import com.cadastro.application.dto.ClienteDTO;
+import com.cadastro.domain.model.Cliente;
 import com.cadastro.infraestructure.repository.ClienteRepository;
 import com.cadastro.interfaces.dto.ClienteFormDTO;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
@@ -11,6 +12,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,7 +32,10 @@ public class ClienteResource {
     @GET
     @Path("/{id}")
     public Response getOne(@PathParam Long id) {
-        return Response.ok(repository.findById(id)).status(200).build();
+        Optional<Cliente> cliente = repository.findByIdOptional(id);
+        if(cliente.isPresent())
+            return Response.ok(cliente.get()).status(200).build();
+        return Response.ok().status(404).build();
     }
 
     @POST

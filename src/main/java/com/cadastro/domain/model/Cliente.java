@@ -12,11 +12,11 @@ public class Cliente {
     private String cpf;
     private String nacionalidade;
     private String naturalidade;
-    @OneToOne private Sexo sexo;
-    @Column(name = "data_nascimento") private LocalDate dataNascimento;
-
-    @ManyToOne
+    private Sexo sexo;
     private Endereco endereco;
+    @Column(name = "data_nascimento") private LocalDate dataNascimento;
+    // @ManyToOne
+
 
     public Cliente() {
     }

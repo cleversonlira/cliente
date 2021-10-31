@@ -3,14 +3,14 @@ package com.cadastro.domain.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+//@Entity
 public enum Sexo {
     FEMININO,
     MASCULINO,
     NAO_BINARIO,
     PREFIRO_NAO_DECLARAR;
 
-    @Id
+    //@Id
     private Long id;
 
     public Long getId() {
