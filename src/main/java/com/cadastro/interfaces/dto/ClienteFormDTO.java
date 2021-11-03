@@ -25,19 +25,20 @@ public class ClienteFormDTO {
     private String sexo;
     @NotBlank(message = "Data de nascimento é obrigatório")
     private String dataNascimento;
-    @NotBlank(message = "Nome é obrigatório")
-    private String logradouro;
-    @NotBlank(message = "Nome é obrigatório")
-    private String numero;
-
-    private String complemento;
-    @NotBlank(message = "Nome é obrigatório")
-    private String municipio;
-    @NotBlank(message = "Nome é obrigatório") @Max(2)
-    private String uf;
-
-    @NotBlank
-    private String cep;
+    private Endereco endereco;
+//    @NotBlank(message = "Nome é obrigatório")
+//    private String logradouro;
+//    @NotBlank(message = "Nome é obrigatório")
+//    private Integer numero;
+//
+//    private String complemento;
+//    @NotBlank(message = "Nome é obrigatório")
+//    private String municipio;
+//    @NotBlank(message = "Nome é obrigatório") @Max(2)
+//    private String uf;
+//
+//    @NotBlank
+//    private String cep;
 
     public void atualizar(Cliente cliente) {
         preencher(cliente);
@@ -53,9 +54,15 @@ public class ClienteFormDTO {
         cliente.setNacionalidade(this.nacionalidade);
         cliente.setNaturalidade(this.naturalidade);
         cliente.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        cliente.setSexo(Sexo.valueOf(this.sexo.replace(" ", "_").toUpperCase()));
-        cliente.setEndereco(new Endereco(cep, logradouro, numero, complemento, municipio, new Estado(uf)));
+        int sexo = Sexo.valueOf(this.sexo.replace(" ", "_").toUpperCase()).obterId();
+        cliente.setSexoId(sexo);
+        cliente.setEndereco(this.endereco);
+//        cliente.setEndereco(new Endereco(cep, logradouro, numero, complemento, municipio, new Estado(uf)));
         return cliente;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public void setNome(String nome) {
@@ -82,27 +89,27 @@ public class ClienteFormDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
+//    public void setLogradouro(String logradouro) {
+//        this.logradouro = logradouro;
+//    }
+//
+//    public void setNumero(Integer numero) {
+//        this.numero = numero;
+//    }
+//
+//    public void setComplemento(String complemento) {
+//        this.complemento = complemento;
+//    }
+//
+//    public void setMunicipio(String municipio) {
+//        this.municipio = municipio;
+//    }
+//
+//    public void setUf(String uf) {
+//        this.uf = uf;
+//    }
+//
+//    public void setCep(String cep) {
+//        this.cep = cep;
+//    }
 }

@@ -12,10 +12,13 @@ public class Cliente {
     private String cpf;
     private String nacionalidade;
     private String naturalidade;
-    private Sexo sexo;
+    @Column(name = "sexo_id")
+    @JoinColumn(name = "sexo_id")
+    private Integer sexo;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
     @Column(name = "data_nascimento") private LocalDate dataNascimento;
-    // @ManyToOne
 
 
     public Cliente() {
@@ -61,11 +64,11 @@ public class Cliente {
         this.naturalidade = naturalidade;
     }
 
-    public Sexo getSexo() {
+    public Integer getSexoId() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexoId(Integer sexo) {
         this.sexo = sexo;
     }
 

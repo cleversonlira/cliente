@@ -2,21 +2,20 @@ package com.cadastro.domain.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Endereco {
 
-  //  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cep;
     private String logradouro;
-    private String numero;
+    private Integer numero;
     private String complemento;
     private String municipio;
-
-    //@ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Estado estado;
 
-    public Endereco(String cep, String logradouro, String numero, String complemento, String municipio, Estado estado) {
+    public Endereco(String cep, String logradouro, Integer numero, String complemento, String municipio, Estado estado) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -45,7 +44,7 @@ public class Endereco {
         return logradouro;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 

@@ -1,9 +1,8 @@
 package com.cadastro.application.dto;
 
 import com.cadastro.domain.model.Cliente;
+import com.cadastro.domain.model.Endereco;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +16,7 @@ public class ClienteDTO {
     private String naturalidade;
     private String sexo;
     private String dataNascimento;
-    private String logradouro;
-    private String numero;
-    private String complemento;
-    private String municipio;
-    private String uf;
-    private String cep;
+    private Endereco endereco;
 
     public ClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
@@ -32,12 +26,7 @@ public class ClienteDTO {
         this.naturalidade = cliente.getNaturalidade();
         this.sexo = cliente.toString().replaceAll("_", " ").toLowerCase();
         this.dataNascimento = cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.logradouro = cliente.getEndereco().getLogradouro();
-        this.numero = cliente.getEndereco().getNumero();
-        this.complemento = cliente.getEndereco().getComplemento();
-        this.municipio = cliente.getEndereco().getMunicipio();
-        this.uf = cliente.getEndereco().getEstado().getSigla();
-        this.cep = cliente.getEndereco().getCep();
+        this.endereco = cliente.getEndereco();
     }
 
     public static List<ClienteDTO> converterLista(List<Cliente> clientes) {
@@ -72,27 +61,7 @@ public class ClienteDTO {
         return dataNascimento;
     }
 
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public String getMunicipio() {
-        return municipio;
-    }
-
-    public String getUf() {
-        return uf;
-    }
-
-    public String getCep() {
-        return cep;
+    public Endereco getEndereco() {
+        return endereco;
     }
 }
