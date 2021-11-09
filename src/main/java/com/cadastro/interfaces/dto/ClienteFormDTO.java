@@ -72,4 +72,7 @@ public class ClienteFormDTO {
         this.dataNascimento = dataNascimento;
     }
 
+    public String getNome() {
+        return nome;
+    }
 }

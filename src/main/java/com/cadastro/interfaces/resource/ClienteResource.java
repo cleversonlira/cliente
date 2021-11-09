@@ -28,6 +28,13 @@ public class ClienteResource {
         return ClienteDTO.converterLista(repository.listAll());
     }
 
+    @POST
+    @Path("/send/list")
+    public Response receiveList(List<ClienteFormDTO> list) {
+        list.forEach(cliente -> System.out.println(cliente.getNome()));
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{id}")
     public Response getOne(@PathParam Long id) {
