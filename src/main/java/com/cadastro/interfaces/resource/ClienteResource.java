@@ -23,7 +23,6 @@ public class ClienteResource {
     @Inject
     ClienteRepository repository;
 
-    //listAll
     @GET
     public List<ClienteDTO> list() {
         return ClienteDTO.converterLista(repository.listAll());
@@ -52,7 +51,7 @@ public class ClienteResource {
         Optional<Cliente> cliente = repository.findByIdOptional(id);
         if (cliente.isPresent()) {
             formDTO.atualizar(cliente.get());
-            return Response.ok(formDTO).status(200).build();
+            return Response.ok(new ClienteDTO(cliente.get())).status(200).build();
         }
         return Response.ok(formDTO).status(404).build();
     }
@@ -60,9 +59,11 @@ public class ClienteResource {
     @DELETE
     @Path("/{id}")
     @Transactional
-    public Response delete(Long id) {
-        repository.deleteById(id);
-        return Response.ok().status(202).build();
+    public Response delete(@PathParam Long id) {
+        if (repository.findByIdOptional(id).isPresent()) {
+            repository.deleteById(id);
+            return Response.ok().status(202).build();
+        }
+        return Response.ok().status(404).build();
     }
-
 }
