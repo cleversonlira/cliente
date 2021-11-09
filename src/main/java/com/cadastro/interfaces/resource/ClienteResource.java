@@ -8,6 +8,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -39,16 +40,21 @@ public class ClienteResource {
 
     @POST
     @Transactional
-    public Response create(ClienteFormDTO formDTO) {
+    public Response create(@Valid ClienteFormDTO formDTO) {
         repository.persist(formDTO.converter());
-        return Response.ok(formDTO).status(201).build();
+        return Response.ok().status(201).build();
     }
 
     @PUT
-    @Path("/{Id}")
+    @Path("/{id}")
     @Transactional
-    public Response update(Long id, ClienteFormDTO formDTO) {
-        return Response.ok(formDTO).status(200).build();
+    public Response update(@PathParam Long id, @Valid ClienteFormDTO formDTO) {
+        Optional<Cliente> cliente = repository.findByIdOptional(id);
+        if (cliente.isPresent()) {
+            formDTO.atualizar(cliente.get());
+            return Response.ok(formDTO).status(200).build();
+        }
+        return Response.ok(formDTO).status(404).build();
     }
 
     @DELETE

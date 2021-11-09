@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ClienteDTO {
 
-    private Long id;
+    private long id;
     private String nome;
     private String cpf;
     private String nacionalidade;
@@ -18,13 +18,15 @@ public class ClienteDTO {
     private String dataNascimento;
     private Endereco endereco;
 
+    public ClienteDTO() {}
+
     public ClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.cpf = cliente.getCpf();
         this.nacionalidade = cliente.getNacionalidade();
         this.naturalidade = cliente.getNaturalidade();
-        this.sexo = cliente.toString().replaceAll("_", " ").toLowerCase();
+        this.sexo = cliente.getSexo().toString().replaceAll("_", " ").toLowerCase();
         this.dataNascimento = cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.endereco = cliente.getEndereco();
     }
